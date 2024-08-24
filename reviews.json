@@ -1,0 +1,124 @@
+{
+  "reviews": [
+    {
+      "professor": "Dr. Sarah Johnson",
+      "subject": "Biology",
+      "stars": 4,
+      "reviews": "Engaging lectures and challenging assignments. Very knowledgeable in her field."
+    },
+    {
+      "professor": "Prof. Michael Chen",
+      "subject": "Computer Science",
+      "stars": 5,
+      "reviews": "Excellent teacher! Makes complex topics easy to understand. Always available for office hours."
+    },
+    {
+      "professor": "Dr. Emily Rodriguez",
+      "subject": "Psychology",
+      "stars": 3,
+      "reviews": "Interesting course material, but lectures can be dry at times. Fair grader."
+    },
+    {
+      "professor": "Prof. David Thompson",
+      "subject": "History",
+      "stars": 4,
+      "reviews": "Passionate about the subject. Assigns a lot of reading, but it's all relevant and interesting."
+    },
+    {
+      "professor": "Dr. Lisa Patel",
+      "subject": "Chemistry",
+      "stars": 5,
+      "reviews": "Brilliant instructor. Tough exams, but prepares students well. Great lab sessions."
+    },
+    {
+      "professor": "Prof. Robert Anderson",
+      "subject": "Economics",
+      "stars": 2,
+      "reviews": "Lectures are confusing. Doesn't explain concepts clearly. Strict grading policy."
+    },
+    {
+      "professor": "Dr. Jennifer Lee",
+      "subject": "English Literature",
+      "stars": 4,
+      "reviews": "Insightful discussions in class. Encourages critical thinking. Sometimes plays favorites."
+    },
+    {
+      "professor": "Prof. Thomas Wright",
+      "subject": "Physics",
+      "stars": 3,
+      "reviews": "Knowledgeable but not the best at explaining. Helpful during office hours."
+    },
+    {
+      "professor": "Dr. Maria Gonzalez",
+      "subject": "Sociology",
+      "stars": 5,
+      "reviews": "Fantastic professor! Engaging lectures and thought-provoking assignments. Very approachable."
+    },
+    {
+      "professor": "Prof. James Wilson",
+      "subject": "Mathematics",
+      "stars": 4,
+      "reviews": "Clear explanations of difficult concepts. Assignments can be challenging but fair."
+    },
+    {
+      "professor": "Dr. Karen Brown",
+      "subject": "Art History",
+      "stars": 3,
+      "reviews": "Passionate about the subject. Lectures can be long-winded. Grading is sometimes inconsistent."
+    },
+    {
+      "professor": "Prof. Richard Taylor",
+      "subject": "Political Science",
+      "stars": 4,
+      "reviews": "Stimulating debates in class. Encourages diverse perspectives. Heavy workload but worthwhile."
+    },
+    {
+      "professor": "Dr. Amanda Nelson",
+      "subject": "Environmental Science",
+      "stars": 5,
+      "reviews": "Inspiring teacher. Makes the subject relevant to current issues. Great field trips."
+    },
+    {
+      "professor": "Prof. Steven Kim",
+      "subject": "Philosophy",
+      "stars": 2,
+      "reviews": "Lectures are hard to follow. Assignments are vague. Not very responsive to emails."
+    },
+    {
+      "professor": "Dr. Rachel Green",
+      "subject": "Linguistics",
+      "stars": 4,
+      "reviews": "Fascinating course content. Professor is enthusiastic and knowledgeable. Fair grader."
+    },
+    {
+      "professor": "Prof. Daniel Martinez",
+      "subject": "Business Administration",
+      "stars": 3,
+      "reviews": "Good real-world examples in lectures. Sometimes disorganized. Helpful during office hours."
+    },
+    {
+      "professor": "Dr. Laura White",
+      "subject": "Anthropology",
+      "stars": 5,
+      "reviews": "Exceptional professor! Engaging lectures, interesting assignments, and very supportive."
+    },
+    {
+      "professor": "Prof. Christopher Lee",
+      "subject": "Mechanical Engineering",
+      "stars": 4,
+      "reviews": "Challenging course but excellent teaching. Professor is patient and explains concepts well."
+    },
+    {
+      "professor": "Dr. Olivia Parker",
+      "subject": "Music Theory",
+      "stars": 3,
+      "reviews": "Knowledgeable instructor. Class can be dry at times. Assignments are creative but time-consuming."
+    },
+    {
+      "professor": "Prof. Alexander Nguyen",
+      "subject": "Statistics",
+      "stars": 4,
+      "reviews": "Clear explanations of complex topics. Fair exams. Always willing to help during office hours."
+    }
+  ]
+}
