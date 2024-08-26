@@ -1,7 +1,10 @@
 "use client";
-import { Box, Button, Stack, TextField } from "@mui/material";
+import { Box, Button, Stack, TextField, IconButton } from "@mui/material";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
+//import MicIcon from "@mui/icons-material/Mic";
+import MicNoneRoundedIcon from "@mui/icons-material/MicNoneRounded";
+
 
 
 export default function Home() {
@@ -13,6 +16,56 @@ export default function Home() {
   ]);
 
   const [message, setMessage] = useState("");
+  const [isListening, setIsListening] = useState(false);
+
+  //browser compatibility
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+  
+  if (!SpeechRecognition) {
+    console.error("Speech Recognition API not supported");
+    return <div>Speech Recognition API not supported in this browser.</div>;
+  }
+
+  const recognition = new SpeechRecognition();
+
+  recognition.continuous = false; // only listen for a single utterance
+  recognition.interimResults = false; // don't return interim results
+  recognition.lang = "en-US"; // language to US English
+
+
+  recognition.onstart = () => {
+    console.log("Speech recognition started");
+    setIsListening(true);
+  };
+
+  // speech to text conversion
+  recognition.onresult = (event) => {
+    const speechToText = event.results[0][0].transcript;
+    console.log("Speech to text result:", speechToText);
+    setMessage(speechToText); 
+    setIsListening(false); 
+  };
+
+
+  recognition.onerror = (e) => {
+    console.error("Speech recognition error:", e.error); 
+    setIsListening(false); 
+  };
+
+  recognition.onend = () => {
+    console.log("Speech recognition ended");
+    setIsListening(false);
+  };
+
+
+  const handleVoiceInput = () => {
+    if (isListening) {
+      recognition.stop(); //stop listening if already active
+    } else {
+      recognition.start(); //start listening if inactive
+    }
+  };
 
   const sendMessage = async () => {
     setMessage("");
@@ -51,6 +104,13 @@ export default function Home() {
         return reader.read().then(processText);
       });
     });
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault(); // if enter key is pressed without shift key, prevent default behavior, and send the message
+      sendMessage(); 
+    }
   };
 
   return (
@@ -106,7 +166,16 @@ export default function Home() {
             fullWidth
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={handleKeyDown}
+            multiline
           />
+          <IconButton
+            onClick={handleVoiceInput}
+            color={isListening ? "secondary" : "default"}
+          >
+            {" "}
+            <MicNoneRoundedIcon />
+          </IconButton>
           <Button variant="contained" onClick={sendMessage}>
             Send
           </Button>
