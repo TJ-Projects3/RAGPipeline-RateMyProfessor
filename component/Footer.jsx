@@ -6,7 +6,7 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 
 export default function Footer() {
     return (
-        <AppBar position="static" className="nav-bar" sx={{ backgroundColor:'#b3bfe0'}}>
+        <AppBar position="static" className="nav-bar" sx={{ backgroundColor:'#b3bfe0'}} height='20vh'>
             <Toolbar className="tool-bar">
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <img src="\RMP.png" width="50px"></img>

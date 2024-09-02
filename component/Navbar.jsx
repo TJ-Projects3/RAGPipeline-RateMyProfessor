@@ -3,7 +3,7 @@ import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export default function CustomAppBar() {
     return (
-        <AppBar position="static" className="nav-bar" sx={{ backgroundColor:'#b3bfe0'}}>
+        <AppBar position="static" className="nav-bar" sx={{ backgroundColor: '#b3bfe0' }} height='20vh'>
             <Toolbar className="tool-bar">
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <img src="\RMP.png" width="50px"></img>
@@ -23,9 +23,9 @@ export default function CustomAppBar() {
                         <Button color="inherit" href="/sign-in" className="button-blue" sx={{ mr: 2, backgroundColor: '#2E46CD', color: 'white', fontWeight: 600, borderRadius: '10px', padding: '5px 15px 5px 15px', marginLeft: '10px','&:hover': {backgroundColor: '#1565C0',}, }}>Login</Button>
                     </SignedOut>
                     <SignedIn>
-                    <Button color="inherit" href="/generate"  sx={{ mr: 2, border:'1px solid black', backgroundColor: 'white', color: 'black', fontWeight: 600, borderRadius: '10px', padding: '5px 15px 5px 15px', marginLeft: '10px','&:hover': {backgroundColor: '#e2e2e2',}, }}>Generate</Button>
-                        <Button color="inherit" href="/flashcards" sx={{ mr: 2, backgroundColor: '#2E46CD', color: 'white', fontWeight: 600, borderRadius: '10px', padding: '5px 15px 5px 15px', marginLeft: '10px','&:hover': {backgroundColor: '#1565C0',}, }}>My Cards</Button>
-                        <UserButton />
+                    {/* <Button color="inherit" href="/generate"  sx={{ mr: 2, border:'1px solid black', backgroundColor: 'white', color: 'black', fontWeight: 600, borderRadius: '10px', padding: '5px 15px 5px 15px', marginLeft: '10px','&:hover': {backgroundColor: '#e2e2e2',}, }}>Generate</Button>
+                        <Button color="inherit" href="/flashcards" sx={{ mr: 2, backgroundColor: '#2E46CD', color: 'white', fontWeight: 600, borderRadius: '10px', padding: '5px 15px 5px 15px', marginLeft: '10px','&:hover': {backgroundColor: '#1565C0',}, }}>My Cards</Button> */}
+                    <UserButton />
                     </SignedIn>
                 </div>
                 
