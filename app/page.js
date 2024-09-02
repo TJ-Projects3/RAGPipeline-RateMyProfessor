@@ -1,10 +1,14 @@
 "use client";
 import { Box, Button, Stack, TextField, IconButton } from "@mui/material";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 //import MicIcon from "@mui/icons-material/Mic";
 import MicNoneRoundedIcon from "@mui/icons-material/MicNoneRounded";
+import DeleteIcon from "@mui/icons-material/Delete";
 import NavBar from "@/component/Navbar"
+import HomePage from "./homepage/page"
+import Footer from "@/component/Footer";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 
 
 
@@ -18,11 +22,42 @@ export default function Home() {
 
   const [message, setMessage] = useState("");
   const [isListening, setIsListening] = useState(false);
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    const savedMessages = localStorage.getItem("chatMessages");
+    if (savedMessages) {
+      try {
+        const parsedMessages = JSON.parse(savedMessages);
+        if (Array.isArray(parsedMessages) && parsedMessages.length > 0) {
+          setMessages(parsedMessages);
+        } else {
+          console.log("No valid messages found in local storage");
+        }
+      } catch (error) {
+        console.error("Error parsing messages from local storage:", error);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (messages.length > 1) {
+      //save if there are messages beyond the initial one
+      try {
+        localStorage.setItem("chatMessages", JSON.stringify(messages));
+        console.log("Saved messages to local storage:", messages);
+      } catch (error) {
+        console.error("Error saving messages to local storage:", error);
+      }
+    }
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
 
   //browser compatibility
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
-  
+
   if (!SpeechRecognition) {
     console.error("Speech Recognition API not supported");
     return <div>Speech Recognition API not supported in this browser.</div>;
@@ -34,7 +69,6 @@ export default function Home() {
   recognition.interimResults = false; // don't return interim results
   recognition.lang = "en-US"; // language to US English
 
-
   recognition.onstart = () => {
     console.log("Speech recognition started");
     setIsListening(true);
@@ -44,21 +78,19 @@ export default function Home() {
   recognition.onresult = (event) => {
     const speechToText = event.results[0][0].transcript;
     console.log("Speech to text result:", speechToText);
-    setMessage(speechToText); 
-    setIsListening(false); 
+    setMessage(speechToText);
+    setIsListening(false);
   };
 
-
   recognition.onerror = (e) => {
-    console.error("Speech recognition error:", e.error); 
-    setIsListening(false); 
+    console.error("Speech recognition error:", e.error);
+    setIsListening(false);
   };
 
   recognition.onend = () => {
     console.log("Speech recognition ended");
     setIsListening(false);
   };
-
 
   const handleVoiceInput = () => {
     if (isListening) {
@@ -110,105 +142,141 @@ export default function Home() {
   const handleKeyDown = (event) => {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault(); // if enter key is pressed without shift key, prevent default behavior, and send the message
-      sendMessage(); 
+      sendMessage();
     }
+  };
+
+  const clearChatHistory = () => {
+    const initialMessage = {
+      role: "assistant",
+      content: `Chat history has been cleared. How can I help you today?`,
+    };
+    setMessages([initialMessage]);
+    localStorage.removeItem("chatMessages");
   };
 
   return (
     <div>
-      <NavBar></NavBar>
-      <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-        bgcolor="#f5f5f5"
-        p={2}
-      >
-        <Stack
-          direction="column"
-          width="450px"
-          height="600px"
-          borderRadius={2}
-          boxShadow="0 8px 16px rgba(0, 0, 0, 0.1)"
-          bgcolor="white"
-          p={3}
-          spacing={3}
+      <SignedIn>
+        <NavBar></NavBar>
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          bgcolor="#f5f5f5"
+          p={1}
+          height="83vh"
         >
           <Stack
             direction="column"
-            spacing={2}
-            flexGrow={1}
-            overflow="auto"
-            maxHeight="100%"
-            sx={{ 
-              '&::-webkit-scrollbar': { width: '6px' },
-              '&::-webkit-scrollbar-thumb': { bgcolor: '#cccccc', borderRadius: '10px' }
-            }}
+            width="600px"
+            height="600px"
+            borderRadius={5}
+            boxShadow="0 8px 16px rgba(0, 0, 0, 0.1)"
+            bgcolor="white"
+            p={3}
+            spacing={3}
           >
-            {messages.map((message, index) => (
-              <Box
-                key={index}
-                display="flex"
-                justifyContent={
-                  message.role === "assistant" ? "flex-start" : "flex-end"
-                }
+            <Stack
+              direction="row"
+              justifyContent="flex-end"
+              alignItems="center"
+              spacing={2}
+              height='2%'
+            >
+              <Button
+                variant="outlined"
+                color="secondary"
+                startIcon={<DeleteIcon />}
+                onClick={clearChatHistory}
               >
+                Clear Chat History
+              </Button>
+            </Stack>
+            <Stack
+              direction="column"
+              spacing={2}
+              flexGrow={1}
+              overflow="auto"
+              maxHeight="100%"
+              sx={{
+                "&::-webkit-scrollbar": { width: "6px" },
+                "&::-webkit-scrollbar-thumb": {
+                  bgcolor: "#cccccc",
+                  borderRadius: "10px",
+                },
+              }}
+            >
+              {messages.map((message, index) => (
                 <Box
-                  bgcolor={
-                    message.role === "assistant"
-                      ? "primary.main"
-                      : "secondary.main"
+                  key={index}
+                  display="flex"
+                  justifyContent={
+                    message.role === "assistant" ? "flex-start" : "flex-end"
                   }
-                  color="white"
-                  borderRadius="12px"
-                  p={2}
-                  maxWidth="75%"
-                  boxShadow="0 4px 12px rgba(0, 0, 0, 0.1)"
-                  sx={{padding: "25px"}}
                 >
-                  <ReactMarkdown>{message.content}</ReactMarkdown>
+                  <Box
+                    bgcolor={
+                      message.role === "assistant"
+                        ? "primary.main"
+                        : "secondary.main"
+                    }
+                    color="white"
+                    borderRadius="12px"
+                    p={2}
+                    maxWidth="75%"
+                    boxShadow="0 4px 12px rgba(0, 0, 0, 0.1)"
+                    sx={{ padding: "25px" }}
+                  >
+                    <ReactMarkdown>{message.content}</ReactMarkdown>
+                  </Box>
                 </Box>
-              </Box>
-            ))}
+              ))}
+              <div ref={messagesEndRef} />
+            </Stack>
+            <Stack direction="row" spacing={2} alignItems="center">
+              <TextField
+                label="Type your message..."
+                variant="outlined"
+                fullWidth
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                onKeyDown={handleKeyDown}
+                multiline
+                sx={{
+                  bgcolor: "#ffffff",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                }}
+              />
+              <IconButton
+                onClick={handleVoiceInput}
+                color={isListening ? "secondary" : "default"}
+                sx={{ boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}
+              >
+                <MicNoneRoundedIcon />
+              </IconButton>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={sendMessage}
+                sx={{
+                  borderRadius: "8px",
+                  padding: "8px 16px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                }}
+              >
+                Send
+              </Button>
+            </Stack>
           </Stack>
-          <Stack direction="row" spacing={2} alignItems="center">
-            <TextField
-              label="Type your message..."
-              variant="outlined"
-              fullWidth
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              onKeyDown={handleKeyDown}
-              multiline
-              sx={{
-                bgcolor: '#ffffff',
-                borderRadius: '8px',
-                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-              }}
-            />
-            <IconButton
-              onClick={handleVoiceInput}
-              color={isListening ? "secondary" : "default"}
-              sx={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}
-            >
-              <MicNoneRoundedIcon />
-            </IconButton>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={sendMessage}
-              sx={{
-                borderRadius: '8px',
-                padding: '8px 16px',
-                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-              }}
-            >
-              Send
-            </Button>
-          </Stack>
-        </Stack>
-      </Box>
+        </Box>
+        <Footer></Footer>
+      </SignedIn>
+      <SignedOut>
+        <HomePage></HomePage>
+      </SignedOut>
     </div>
   );
 }
