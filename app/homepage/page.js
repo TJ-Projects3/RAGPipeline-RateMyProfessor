@@ -1,6 +1,8 @@
 'use client'
 import Footer from "@/component/Footer"
 import NavBar from "@/component/Navbar"
+import Resources from "@/component/Resources"
+import ContactUs from "@/component/ContactUs"
 import { Container, Typography, Button, Box, Grid, Divider } from "@mui/material"
 import Head from "next/head";
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
@@ -72,7 +74,8 @@ export default function page() {
             <Button
               className="button-blue"
               variant="outlined"
-              color="primary"
+                        color="primary"
+                        href="#Resources"
               sx={{
                 mt: 2,
                 backgroundColor: "#2E46CD",
@@ -228,7 +231,9 @@ export default function page() {
             width="400px"
             style={{ padding: "0 50px 50px 0" }}
           />
-        </div>
+            </div>
+            <Resources />
+            <ContactUs />
         <Footer></Footer>
       </>
     );

@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 //import MicIcon from "@mui/icons-material/Mic";
 import MicNoneRoundedIcon from "@mui/icons-material/MicNoneRounded";
 import DeleteIcon from "@mui/icons-material/Delete";
+import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import NavBar from "@/component/Navbar"
 import HomePage from "./homepage/page"
 import Footer from "@/component/Footer";
@@ -155,6 +156,22 @@ export default function Home() {
     localStorage.removeItem("chatMessages");
   };
 
+  const exportChat = () => {
+    const fileName = "rmp_chat_history.txt"; //switch btw .json or .md 
+    const fileContent = messages
+      .map((message) => `${message.role}: ${message.content}`)
+      .join("\n\n"); //format as "role: content" with line breaks in between
+
+    const blob = new Blob([fileContent], { type: "text/plain" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+
   return (
     <div>
       <SignedIn>
@@ -180,10 +197,10 @@ export default function Home() {
           >
             <Stack
               direction="row"
-              justifyContent="flex-end"
+              justifyContent="space-between"
               alignItems="center"
               spacing={2}
-              height='2%'
+              height="2%"
             >
               <Button
                 variant="outlined"
@@ -192,6 +209,19 @@ export default function Home() {
                 onClick={clearChatHistory}
               >
                 Clear Chat History
+              </Button>
+              <Button
+                variant="outlined"
+                color="secondary"
+                startIcon={<SaveAltIcon />}
+                onClick={exportChat}
+                sx={{
+                  borderRadius: "8px",
+                  padding: "8px 16px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                }}
+              >
+                Export Chat
               </Button>
             </Stack>
             <Stack
@@ -261,6 +291,7 @@ export default function Home() {
                 variant="contained"
                 color="primary"
                 onClick={sendMessage}
+                disabled={!message.trim()}
                 sx={{
                   borderRadius: "8px",
                   padding: "8px 16px",
