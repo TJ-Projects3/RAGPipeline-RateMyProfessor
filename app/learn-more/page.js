@@ -31,8 +31,8 @@ const LearnMore = () => {
         Contact or connect with our founders
       </Typography>
       <Typography variant="body1" align="center" color="textSecondary" paragraph>
-        RMP AI is a platform that helps students make informed and smarter decisions for their classes and professors. 
-        Explore detailed reviews, ratings, and comments from students just like you.
+        Rate My Professor AI is a platform <em>created by students, for students</em>. Connect with us on LinkedIn and
+        other platforms, we are happy to speak with you!! Thank you for supporting us and using Rate My Professor AI!
       </Typography>
       <Box sx={{width:1200, height:500, backgroundColor: '#8ABD91', borderRadius:80, display: 'flex'}} ml={'auto'} mr={'auto'}>
         <img src=""></img>
