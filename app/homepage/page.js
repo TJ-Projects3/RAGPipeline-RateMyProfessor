@@ -196,7 +196,7 @@ export default function page() {
               >
                 We aggregate data from existing professor ratings, reviews, and
                 course information to provide a comprehensive analysis of each
-                professor's performance.
+                professor&apos;s performance.
               </Typography>
             </AccordionDetails>
           </Accordion>
