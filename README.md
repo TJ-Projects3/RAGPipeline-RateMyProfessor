@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Rate My Professor AI makes picking professors and courses way easier for students by providing in-depth summaries and analysis of each individual professor. Uses a RAG pipeline to fetch reviews from a Pinecone database, embed them, and build up a knowledge base for the chatbot and services.
 
 ## Getting Started
 
