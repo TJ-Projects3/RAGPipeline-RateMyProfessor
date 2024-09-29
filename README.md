@@ -1,4 +1,4 @@
-Rate My Professor AI makes picking professors and courses way easier for students by providing in-depth summaries and analysis of each individual professor. Uses a RAG pipeline to fetch reviews from a Pinecone database, embed them, and build up a knowledge base for the chatbot and services.
+Rate My Professor AI makes picking professors and courses hassle-free for students by providing in-depth summaries and analysis of each individual professor. Uses a RAG pipeline to fetch reviews from a Pinecone database, embed them, and build up a knowledge base for the chatbot and services. This will allow students to see which teacher is best for them in an efficient, insightful way, giving an edge into the next semester
 
 ## Getting Started
 
