@@ -120,5 +120,13 @@
       "stars": 4,
       "reviews": "Clear explanations of complex topics. Fair exams. Always willing to help during office hours."
     }
+
+    {
+      "professor": "Dr. Banghee So"
+      "subject": "Statistics",
+      "stars": 4,
+      "reviews": "Kind, gentle teacher and lenient grader. You can tell she is passionate about math. Always willing to help during office hours.
+      Her accent is a little thick though and her explanations and how she elaborates is sometimes to difficult to understand. Great teacher though."
+    }
   ]
 }
